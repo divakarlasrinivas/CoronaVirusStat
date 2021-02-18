@@ -1,0 +1,82 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Panel width="auto" class="sapUiResponsiveMargin">
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="{path:'selectedCountry>/country'}: COVID 19 Overview"/>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<content>
+			<VBox>
+				<VBox>
+					<HBox class="sapUiLargeMarginBegin sapUiLargeMarginEnd">
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Today's Cases" press="onPress" frameType="OneByHalf">
+							<TileContent unit="Unit" footer="Today's New Cases">
+								<NumericContent truncateValueTo="10" value="{path:'selectedCountry>/todayCases'}" valueColor="None" withMargin="true"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Today's Deaths" press="onPress" frameType="OneByHalf">
+							<TileContent unit="Unit" footer="Today's Deaths">
+								<NumericContent truncateValueTo="10" value="{path:'selectedCountry>/todayDeaths'}" valueColor="None" withMargin="true"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Active" press="onPress" frameType="OneByHalf">
+							<TileContent unit="Unit" footer="Active Cases">
+								<NumericContent truncateValueTo="10" value="{path:'selectedCountry>/active'}" valueColor="None" withMargin="true"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Critical" press="onPress" frameType="OneByHalf">
+							<TileContent unit="Unit" footer="Critical Cases">
+								<NumericContent truncateValueTo="10" value="{path:'selectedCountry>/critical'}" valueColor="None" withMargin="true"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Cases" press="onPress" frameType="OneByHalf">
+							<TileContent unit="Unit" footer="Cases Per 1M">
+								<NumericContent truncateValueTo="10" scale="M" value="{path:'selectedCountry>/casesPerOneMillion'}" valueColor="None" withMargin="true"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Deaths" press="onPress" frameType="OneByHalf">
+							<TileContent unit="Unit" footer="Deaths Per 1M">
+								<NumericContent scale="1M" value="{path:'selectedCountry>/deathsPerOneMillion'}" valueColor="None" withMargin="true"/>
+							</TileContent>
+						</GenericTile>
+					</HBox>
+				</VBox>
+				<HBox>
+					<mvc:XMLView viewName="com.basf.techInterview.test2.CoronaVirusStats.view.Chart" />
+					<VBox>
+						<Table id="affectedCountriesTable" inset="false" class="tableMargin" alternateRowColors="true" growing="true" growingThreshold="10" growingScrollToLoad="false"
+							autoPopinMode="true"
+							items="{ path: 'corona>/', sorter: { path: 'cases', descending: 'true' }, filters: [ { path: 'country', operator: 'NE', value1: 'World' } ] }">
+							<headerToolbar>
+								<OverflowToolbar>
+									<Title text="Top 10 Affected" level="H1"/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column width="2em">
+									<Text text="Country"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="2em">
+									<Text text="Cases"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End" width="2em">
+									<Text text="Death"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier title="{corona>country}"/>
+										<ObjectIdentifier title="{corona>cases}"/>
+										<ObjectIdentifier title="{corona>deaths}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</HBox>
+			</VBox>
+		</content>
+	</Panel>
+</mvc:View>

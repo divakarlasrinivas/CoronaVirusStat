@@ -1,0 +1,47 @@
+<mvc:View controllerName="com.basf.techInterview.test2.CoronaVirusStats.controller.Main" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<tnt:ToolHeader class="bgHeader">
+		<Button icon="sap-icon://menu2" type="Transparent"/>
+		<Image src="./assets/logo.svg" width="76px" height="28px"/>
+		<Text text="Test II by Srinivas Divakarla" wrapping="false"/>
+		<ToolbarSpacer/>
+		<SearchField id="searchField" width="30%" placeholder="Search for countries" enableSuggestions="true" search=".onSearch"
+			suggest=".onSuggest" suggestionItems="{corona>/}">
+			<SuggestionItem text="{corona>country}" description="cases{path:'corona>todayCases'} {path:'cases'}" key="{corona>country}"/>
+		</SearchField>
+		<Avatar src="./assets/me.png" displaySize="XS"/>
+		<Button icon="sap-icon://grid" type="Transparent"/>
+	</tnt:ToolHeader>
+	<HBox class="sapUiLargeMarginBegin sapUiLargeMarginEnd">
+		<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{path:'selectedCountry>/country'}" press="onPress"
+			frameType="OneByHalf">
+			<TileContent unit="Unit" footer="Today's New Cases">
+				<NumericContent truncateValueTo="10" value="{path:'selectedCountry>/todayCases'}" valueColor="None" withMargin="false"/>
+			</TileContent>
+		</GenericTile>
+		<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{path:'selectedCountry>/country'} Tests Count"
+			press="onPress" frameType="OneByHalf">
+			<TileContent unit="Unit" footer="Today's New Cases">
+				<NumericContent truncateValueTo="10" scale="M" value="{path:'corona>/', formatter:'.formatter.getTotalTestCount'}" valueColor="None"
+					withMargin="false"/>
+			</TileContent>
+		</GenericTile>
+		<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Confirmed" frameType="TwoByHalf" subheader="Expenses"
+			press="onPress">
+			<TileContent unit="Unit" footer="Confirmed Cases">
+				<NumericContent truncateValueTo="10" scale="+ve" value="{path:'selectedCountry>/cases'}" valueColor="Error" withMargin="false"/>
+			</TileContent>
+		</GenericTile>
+		<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Recovered" press="onPress" frameType="TwoByHalf">
+			<TileContent unit="Unit" footer="Recovered Cases">
+				<NumericContent truncateValueTo="10" scale="-ve" value="{path:'selectedCountry>/recovered'}" valueColor="Good" withMargin="false"/>
+			</TileContent>
+		</GenericTile>
+		<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Deaths" press="onPress" frameType="OneByHalf">
+			<TileContent unit="Unit" footer="Reported Deaths">
+				<NumericContent truncateValueTo="10" scale="" value="{path:'selectedCountry>/deaths'}" valueColor="None" withMargin="false"/>
+			</TileContent>
+		</GenericTile>
+	</HBox>
+	<mvc:XMLView viewName="com.basf.techInterview.test2.CoronaVirusStats.view.SelectedCountry"/>
+</mvc:View>

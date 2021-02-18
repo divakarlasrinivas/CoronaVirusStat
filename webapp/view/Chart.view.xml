@@ -1,0 +1,37 @@
+<mvc:View xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:chart="sap.suite.ui.commons" width="62rem" height="auto">
+	<viz:Popover id="idPopOver"></viz:Popover>
+	<layout:FixFlex id='chartFixFlex' minFlexSize="750">
+		<layout:fixContent>
+			<chart:ChartContainer id="chartContainer" showFullScreen="true" showZoom="false" title="Sick Vs Recovered" >
+				<chart:ChartContainerContent>
+					<chart:content>
+						<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" vizType='donut' width="70rem"
+							vizProperties="{ plotArea:{ dataLabel:{visible: true,type:'value'}, drawingEffect: 'glossy' }, title : {text:'Sick-Recovered Vs Country'}, legendGroup:{layout:{position: 'left'}} }"
+							selectData="onSelectChartData" >
+							<viz:dataset>
+								<viz.data:FlattenedDataset
+									data="{ path: 'corona>/', sorter: { path: 'cases', descending: 'true' }, filters: [ { path: 'country', operator: 'NE', value1: 'World' } ] }">
+									<viz.data:dimensions>
+										<viz.data:DimensionDefinition name="country" value="{corona>country}"/>
+									</viz.data:dimensions>
+									<viz.data:measures>
+										<viz.data:MeasureDefinition name="recovered" value="{corona>recovered}"/>
+									</viz.data:measures>
+									<viz.data:measures>
+										<viz.data:MeasureDefinition name="deaths" value="{corona>deaths}"/>
+									</viz.data:measures>
+								</viz.data:FlattenedDataset>
+							</viz:dataset>
+							<viz:feeds>
+								<viz.feeds:FeedItem uid="size" type="Measure" values="recovered"/>
+								<viz.feeds:FeedItem uid="size" type="Measure" values="deaths"/>
+								<viz.feeds:FeedItem uid="color" type="Dimension" values="country"/>
+							</viz:feeds>
+						</viz:VizFrame>
+					</chart:content>
+				</chart:ChartContainerContent>
+			</chart:ChartContainer>
+		</layout:fixContent>
+	</layout:FixFlex>
+</mvc:View>

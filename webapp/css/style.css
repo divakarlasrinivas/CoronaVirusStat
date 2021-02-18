@@ -1,0 +1,13 @@
+/* Enter your custom styles here */
+:root {
+
+    --basfDarkBlueColor: #034891;
+    --basfLightBlueColor: #21a0d2;
+    --basfGreenColor: #49ac41;
+    --basfRedColor: #c30216
+}
+
+.tableMargin {
+    margin-top: 4px;
+    margin-left: 5px;
+}
